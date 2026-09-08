@@ -37,4 +37,4 @@ pipeline {
             echo 'Pipeline falhou!'
         }
     }
-}
+}   

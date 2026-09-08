@@ -1,0 +1,40 @@
+name: CI Node.js
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Baixa o código do repositório para a máquina do GitHub Actions
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Instala e configura o Node.js no ambiente
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # Instala as dependências usando o package-lock.json
+      - name: Instalar dependencias
+        run: npm ci
+
+      # Executa o processo de build definido no package.json
+      - name: Build
+        run: npm run build
+
+      # Executa os testes automatizados do projeto
+      - name: Testes
+        run: npm test
